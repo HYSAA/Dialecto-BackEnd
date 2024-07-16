@@ -23,10 +23,11 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('admin/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.dashboard');
-
-Route::resource('courses', CourseController::class);
-Route::resource('lessons', LessonController::class);
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+    Route::resource('admin/courses', CourseController::class);
+    Route::resource('admin/lessons', LessonController::class);
+});
 
 // Example of commented-out routes for languages
 // Route::resource('languages', LanguageController::class);
