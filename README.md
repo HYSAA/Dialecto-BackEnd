@@ -2,6 +2,36 @@
 ******LARAVEL BREEZE RESETS THE ROUTES AND THE LAYOUTS******************************
 ***************IMPORTANT****************************
 
+I MADE A SCRIPT FILE TO AUTOMATICALLY RECOVER LOST FILE 
+
+///COMMAND
+./setup_breeze.ps1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Backup routes
 cp routes/web.php routes/web.php.bak
 
