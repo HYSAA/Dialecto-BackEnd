@@ -1,19 +1,13 @@
+<!-- resources/views/lessons/edit.blade.php -->
 @extends('layouts.app')
 
 @section('content')
     <h1>Edit Lesson</h1>
-
-    <form action="{{ route('lessons.update', $lesson->id) }}" method="POST">
+    <form action="{{ route('lessons.update', $lesson) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ $lesson->title }}">
-        </div>
-        <div class="form-group">
-            <label for="course_id">Course ID</label>
-            <input type="text" class="form-control" id="course_id" name="course_id" value="{{ $lesson->course_id }}">
-        </div>
-        <button type="submit" class="btn btn-primary">Update Lesson</button>
+        <label for="name">Lesson Name:</label>
+        <input type="text" id="name" name="name" value="{{ $lesson->name }}" required>
+        <button type="submit">Update</button>
     </form>
 @endsection

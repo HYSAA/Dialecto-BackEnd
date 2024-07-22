@@ -1,59 +1,49 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
-    public function index()
+    public function index(Course $course)
     {
-        $lessons = Lesson::all();
-        return view('lessons.index', compact('lessons'));
+        $lessons = $course->lessons;
+        return response()->json($lessons);
     }
 
-    public function create()
+    public function store(Request $request, Course $course)
     {
-        return view('lessons.create');
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $lesson = $course->lessons()->create($validatedData);
+        return response()->json($lesson, 201);
     }
 
-    public function store(Request $request)
+    public function show(Course $course, Lesson $lesson)
     {
-        // Validation logic if needed
-        Lesson::create($request->all());
-
-        return redirect()->route('lessons.index')
-            ->with('success', 'Lesson created successfully.');
+        return response()->json($lesson);
     }
 
-    public function show($id)
+    public function update(Request $request, Course $course, Lesson $lesson)
     {
-        $lesson = Lesson::findOrFail($id);
-        return view('lessons.show', compact('lesson'));
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $lesson->update($validatedData);
+        return response()->json($lesson);
     }
 
-    public function edit($id)
+    public function destroy(Course $course, Lesson $lesson)
     {
-        $lesson = Lesson::findOrFail($id);
-        return view('lessons.edit', compact('lesson'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        // Validation logic if needed
-        Lesson::findOrFail($id)->update($request->all());
-
-        return redirect()->route('lessons.index')
-            ->with('success', 'Lesson updated successfully.');
-    }
-
-    public function destroy($id)
-    {
-        Lesson::findOrFail($id)->delete();
-        return redirect()->route('lessons.index')
-            ->with('success', 'Lesson deleted successfully.');
+        $lesson->delete();
+        return response()->json(null, 204);
     }
 }
-

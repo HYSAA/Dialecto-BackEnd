@@ -1,18 +1,12 @@
+<!-- resources/views/lessons/create.blade.php -->
 @extends('layouts.app')
 
 @section('content')
-    <h1>Create New Lesson</h1>
-
-    <form action="{{ route('lessons.store') }}" method="POST">
+    <h1>Add New Lesson for {{ $course->name }}</h1>
+    <form action="{{ route('courses.lessons.store', $course) }}" method="POST">
         @csrf
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title">
-        </div>
-        <div class="form-group">
-            <label for="course_id">Course ID</label>
-            <input type="text" class="form-control" id="course_id" name="course_id">
-        </div>
-        <button type="submit" class="btn btn-primary">Create Lesson</button>
+        <label for="name">Lesson Name:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Save</button>
     </form>
 @endsection

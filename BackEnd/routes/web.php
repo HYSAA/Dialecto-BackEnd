@@ -25,8 +25,12 @@ require __DIR__.'/auth.php';
 
 
 //para ang admin ray maka access 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+// Route::middleware(['auth', 'admin'])->prefix('api')->group(function () {
+//     Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+//     Route::resource('admin/courses', CourseController::class);
+//     Route::resource('admin/lessons', LessonController::class);
+// });
+Route::prefix('api')->group(function () {
     Route::resource('admin/courses', CourseController::class);
     Route::resource('admin/lessons', LessonController::class);
 });

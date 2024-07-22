@@ -1,8 +1,12 @@
+<!-- resources/views/lessons/show.blade.php -->
 @extends('layouts.app')
 
 @section('content')
-    <h1>Lesson Details</h1>
-    <p><strong>Title:</strong> {{ $lesson->title }}</p>
-    <p><strong>Course ID:</strong> {{ $lesson->course_id }}</p>
-    <a href="{{ route('lessons.index') }}" class="btn btn-secondary">Back to Lessons</a>
+    <h1>{{ $lesson->name }}</h1>
+    <a href="{{ route('lessons.edit', $lesson) }}">Edit</a>
+    <form action="{{ route('lessons.destroy', $lesson) }}" method="POST" style="display:inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Delete</button>
+    </form>
 @endsection
